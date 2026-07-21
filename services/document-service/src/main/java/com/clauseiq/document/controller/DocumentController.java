@@ -6,6 +6,8 @@ import com.clauseiq.document.entity.Document;
 import com.clauseiq.document.mapper.DocumentMapper;
 import com.clauseiq.document.service.DocumentService;
 import org.springframework.web.bind.annotation.*;
+import java.util.List;
+import java.util.stream.Collectors;
 
 @RestController
 @RequestMapping("/documents")
@@ -28,5 +30,14 @@ public class DocumentController {
         Document savedDocument = documentService.save(document);
 
         return documentMapper.toResponse(savedDocument);
+    }
+
+    @GetMapping
+    public List<DocumentResponse> getAllDocuments() {
+
+        return documentService.findAll()
+                .stream()
+                .map(documentMapper::toResponse)
+                .collect(Collectors.toList());
     }
 }
