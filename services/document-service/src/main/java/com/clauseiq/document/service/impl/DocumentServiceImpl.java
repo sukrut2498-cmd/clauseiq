@@ -6,7 +6,6 @@ import com.clauseiq.document.service.DocumentService;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
-import java.util.Optional;
 import com.clauseiq.document.exception.DocumentNotFoundException;
 @Service
 public class DocumentServiceImpl implements DocumentService {
@@ -35,6 +34,8 @@ public class DocumentServiceImpl implements DocumentService {
 
     @Override
     public void delete(Long id) {
-        documentRepository.deleteById(id);
+        Document document = findById(id);
+
+        documentRepository.delete(document);
     }
 }
