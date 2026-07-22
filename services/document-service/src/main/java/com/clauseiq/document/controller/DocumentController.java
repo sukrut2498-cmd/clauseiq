@@ -40,4 +40,11 @@ public class DocumentController {
                 .map(documentMapper::toResponse)
                 .collect(Collectors.toList());
     }
+    @GetMapping("/{id}")
+    public DocumentResponse getDocumentById(@PathVariable Long id) {
+
+        Document document = documentService.findById(id);
+
+        return documentMapper.toResponse(document);
+    }
 }

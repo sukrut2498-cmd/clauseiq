@@ -7,7 +7,7 @@ import org.springframework.stereotype.Service;
 
 import java.util.List;
 import java.util.Optional;
-
+import com.clauseiq.document.exception.DocumentNotFoundException;
 @Service
 public class DocumentServiceImpl implements DocumentService {
 
@@ -28,8 +28,9 @@ public class DocumentServiceImpl implements DocumentService {
     }
 
     @Override
-    public Optional<Document> findById(Long id) {
-        return documentRepository.findById(id);
+    public Document findById(Long id) {
+        return documentRepository.findById(id)
+                .orElseThrow(() -> new DocumentNotFoundException(id));
     }
 
     @Override

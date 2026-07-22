@@ -3,7 +3,7 @@ package com.clauseiq.document.service;
 import com.clauseiq.document.entity.Document;
 
 import java.util.List;
-import java.util.Optional;
+
 
 public interface DocumentService {
 
@@ -11,8 +11,9 @@ public interface DocumentService {
 
     List<Document> findAll();
 
-    Optional<Document> findById(Long id);
+    Document findById(Long id);
 
     void delete(Long id);
+
 
 }
