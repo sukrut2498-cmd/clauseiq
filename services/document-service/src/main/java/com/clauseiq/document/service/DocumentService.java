@@ -3,7 +3,7 @@ package com.clauseiq.document.service;
 import com.clauseiq.document.entity.Document;
 
 import java.util.List;
-
+import com.clauseiq.document.constant.DocumentStatus;
 
 public interface DocumentService {
 
@@ -15,5 +15,5 @@ public interface DocumentService {
 
     void delete(Long id);
 
-
+    Document updateStatus(Long id, DocumentStatus status);
 }

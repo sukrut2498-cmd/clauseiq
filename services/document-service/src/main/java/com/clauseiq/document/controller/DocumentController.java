@@ -19,6 +19,7 @@ import org.springframework.web.multipart.MultipartFile;
 import org.springframework.core.io.Resource;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.PatchMapping;
 @RestController
 @RequestMapping("/documents")
 public class DocumentController {
@@ -97,4 +98,13 @@ public class DocumentController {
                 .body(resource);
     }
 
+    @PatchMapping("/{id}/status")
+    public DocumentResponse updateStatus(
+            @PathVariable Long id,
+            @RequestParam DocumentStatus status) {
+
+        Document document = documentService.updateStatus(id, status);
+
+        return documentMapper.toResponse(document);
+    }
 }

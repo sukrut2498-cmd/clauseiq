@@ -7,6 +7,7 @@ import org.springframework.stereotype.Service;
 
 import java.util.List;
 import com.clauseiq.document.exception.DocumentNotFoundException;
+import com.clauseiq.document.constant.DocumentStatus;
 @Service
 public class DocumentServiceImpl implements DocumentService {
 
@@ -37,5 +38,14 @@ public class DocumentServiceImpl implements DocumentService {
         Document document = findById(id);
 
         documentRepository.delete(document);
+    }
+    @Override
+    public Document updateStatus(Long id, DocumentStatus status) {
+
+        Document document = findById(id);
+
+        document.setStatus(status);
+
+        return documentRepository.save(document);
     }
 }
