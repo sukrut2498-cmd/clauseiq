@@ -16,6 +16,9 @@ import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.ResponseStatus;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.multipart.MultipartFile;
+import org.springframework.core.io.Resource;
+import org.springframework.http.HttpHeaders;
+import org.springframework.http.ResponseEntity;
 @RestController
 @RequestMapping("/documents")
 public class DocumentController {
@@ -79,6 +82,19 @@ public class DocumentController {
         Document savedDocument = documentService.save(document);
 
         return documentMapper.toResponse(savedDocument);
+    }
+
+    @GetMapping("/{id}/download")
+    public ResponseEntity<Resource> downloadFile(@PathVariable Long id) {
+
+        Document document = documentService.findById(id);
+
+        Resource resource = fileStorageService.loadFileAsResource(document.getStoragePath());
+
+        return ResponseEntity.ok()
+                .header(HttpHeaders.CONTENT_DISPOSITION,
+                        "attachment; filename=\"" + document.getOriginalFileName() + "\"")
+                .body(resource);
     }
 
 }

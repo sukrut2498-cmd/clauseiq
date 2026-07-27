@@ -9,9 +9,12 @@ import java.io.IOException;
 import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.nio.file.Files;
-import java.io.IOException;
 import java.nio.file.StandardCopyOption;
 import java.util.UUID;
+import org.springframework.core.io.Resource;
+import org.springframework.core.io.UrlResource;
+
+import java.net.MalformedURLException;
 @Service
 public class FileStorageServiceImpl implements FileStorageService {
 
@@ -49,5 +52,23 @@ public class FileStorageServiceImpl implements FileStorageService {
             throw new RuntimeException("Could not store file", e);
         }
         return targetLocation.toString();
+    }
+    @Override
+    public Resource loadFileAsResource(String storagePath) {
+
+        try {
+            Path filePath = Paths.get(storagePath).normalize();
+
+            Resource resource = new UrlResource(filePath.toUri());
+
+            if (resource.exists()) {
+                return resource;
+            }
+
+            throw new RuntimeException("File not found");
+
+        } catch (MalformedURLException e) {
+            throw new RuntimeException("File not found", e);
+        }
     }
 }
