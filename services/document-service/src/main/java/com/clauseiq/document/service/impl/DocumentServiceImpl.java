@@ -48,4 +48,10 @@ public class DocumentServiceImpl implements DocumentService {
 
         return documentRepository.save(document);
     }
+
+    @Override
+    public List<Document> findByStatus(DocumentStatus status) {
+
+        return documentRepository.findByStatus(status);
+    }
 }

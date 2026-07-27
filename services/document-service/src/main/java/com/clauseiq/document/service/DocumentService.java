@@ -16,4 +16,6 @@ public interface DocumentService {
     void delete(Long id);
 
     Document updateStatus(Long id, DocumentStatus status);
+
+    List<Document> findByStatus(DocumentStatus status);
 }

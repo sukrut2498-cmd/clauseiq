@@ -107,4 +107,14 @@ public class DocumentController {
 
         return documentMapper.toResponse(document);
     }
+    @GetMapping("/status")
+    public List<DocumentResponse> getDocumentsByStatus(
+            @RequestParam DocumentStatus status) {
+
+        List<Document> documents = documentService.findByStatus(status);
+
+        return documents.stream()
+                .map(documentMapper::toResponse)
+                .toList();
+    }
 }

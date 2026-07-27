@@ -3,8 +3,9 @@ package com.clauseiq.document.repository;
 import com.clauseiq.document.entity.Document;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
-
+import com.clauseiq.document.constant.DocumentStatus;
+import java.util.List;
 @Repository
 public interface DocumentRepository extends JpaRepository<Document, Long> {
-
+    List<Document> findByStatus(DocumentStatus status);
 }
